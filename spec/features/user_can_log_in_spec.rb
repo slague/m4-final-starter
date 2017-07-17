@@ -25,8 +25,31 @@ describe 'A registered user that is NOT logged in visits root' do
     expect(current_path).to eq(links_path)
     expect(page).to have_content("Signed with #{@user.email} account")
     expect(page).to have_content("Logout")
-    expect(page).to have_content(@my_link)
+    # expect(page).to have_content(@my_link)
   end
+
+  scenario "cannot log in with incorrect email-passoword combination" do
+    visit login_path
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: '456'
+    fill_in "Password confirmation", with: '456'
+
+    click_on "Login"
+
+    expect(page).to have_content("Incorrect email and password combination.")
+  end
+
+  scenario "cannot log in with unregistered email" do
+    visit login_path
+    fill_in "Email", with: 'anewemail@gmail.com'
+    fill_in "Password", with: '456'
+    fill_in "Password confirmation", with: '456'
+
+    click_on "Login"
+
+    expect(page).to have_content("No account registered with that email. Please sign up.")
+  end
+
 end
 
 

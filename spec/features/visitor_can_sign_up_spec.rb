@@ -88,12 +88,4 @@ describe 'Visitor visits links index' do
 
     expect(page).to have_content("Password and confirmation must match in order to register.")
   end
-
 end
-
-
-# I cannot sign up without an email address and a password.
-# Password and confirmation must match.
-# Upon submitting this information, I should be logged in and redirected to the "Links Index" page.
-#
-#

@@ -8,11 +8,12 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       flash[:success] = "Signed with #{@user.email} account"
-
       redirect_to links_path
-    elsif @user.email == nil
-      # FIX
-      flash[:danger] = "Invalid "
+    elsif @user == nil
+      flash[:danger] = "No account registered with that email. Please sign up."
+      render :new
+    else
+      flash[:danger] = "Incorrect email and password combination."
       render :new
     end
   end
