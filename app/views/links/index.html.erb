@@ -7,3 +7,11 @@
 
 
 <h2>My Links Index</h2>
+
+<% @links.each do |link|  %>
+  <div class="links">
+    <h3>Title: <%= link.title %></h3>
+    <h4>URL: <%= link.url %></h4>
+    <h4>Read status: <%= link.read %></h4>
+  </div><br><br>
+    <% end %>
