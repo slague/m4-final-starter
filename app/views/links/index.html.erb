@@ -1,2 +1,9 @@
+<div class='fake nav' align='right'>
+  <% if current_user %>
+  <h3><%= "Signed with #{current_user.email}" %></h3>
+  <% end %>
+  <%= link_to 'Logout', logout_path, method: :delete %>
+</div>
+
 
 <h2>My Links Index</h2>

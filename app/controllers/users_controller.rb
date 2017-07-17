@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
 
     if @user.save
-      flash[:success] = "Successfully created accoutn with email, #{@user.email}"
+      flash[:success] = "Successfully created account with email, #{@user.email}"
       session[:user_id] = @user.id
 
       redirect_to links_path
@@ -16,9 +16,17 @@ class UsersController < ApplicationController
     elsif User.exists?(email: @user.email)
       flash[:danger] = "Sorry, but that email has already been taken."
       render :new
+    elsif user_params[:email] == ""
+      flash[:danger] = "You must include an email in order to register."
+      render :new
+    elsif user_params[:password] == ""
+      flash[:danger] = "You must include a password in order to register."
+      render :new
+    elsif user_params[:password] != user_params[:password_confirmation]
+      flash[:danger] = "Password and confirmation must match in order to register."
+      render :new
     else
-      # FIX
-      flash[:danger] = "Password and confirmation do not match"
+      flash[:danger] = "There was an error. Please try again."
       render :new
     end
 
@@ -27,7 +35,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :password, :email)
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
 end

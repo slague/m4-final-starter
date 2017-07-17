@@ -1,8 +1,38 @@
-# I cannot sign up with an email address that has already been used.
-# I cannot sign up without an email address and a password.
-# Password and confirmation must match.
-# If criteria is not met the user should be given a message to reflect the reason they could not sign up.
-# Upon submitting this information, I should be logged in and redirected to the "Links Index" page.
+require 'rails_helper'
+
+describe 'A registered user that is NOT logged in visits root' do
+  before do
+    @user = User.create(name: "Person", password: "123", email: "hi@gmail.com")
+    @my_link = @user.links.create(title: "First Link", url: "https://google.com", read: true)
+  end
+
+  scenario "is redirected to home page to log in" do
+    visit root_path
+
+    expect(current_path).to eq('/home')
+    expect(page).to have_link('Sign Up')
+    expect(page).to have_link('Login')
+  end
+
+  scenario "visits login page and fills in correct email and password" do
+    visit login_path
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: @user.password
+    fill_in "Password confirmation", with: @user.password
+
+    click_on "Login"
+
+    expect(current_path).to eq(links_path)
+    expect(page).to have_content("Signed with #{@user.email} account")
+    expect(page).to have_content("Logout")
+    expect(page).to have_content(@my_link)
+  end
+end
+
+
+
+
+
 #
 # Sign In
 #

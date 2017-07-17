@@ -37,7 +37,7 @@ describe 'Visitor visits links index' do
     click_on "Create User"
 
     expect(current_path).to eq(links_path)
-    expect(page).to have_content("Successfully created accoutn with email, #{@user.email}")
+    expect(page).to have_content("Successfully created account with email, #{@user.email}")
   end
 
   scenario "new user cannot register with already-used email address" do
@@ -61,7 +61,7 @@ describe 'Visitor visits links index' do
 
     click_on "Create User"
 
-    expect(page).to have_content("You must include a password in order to register")
+    expect(page).to have_content("You must include a password in order to register.")
   end
 
   scenario "new user cannot register without an email" do
@@ -73,7 +73,7 @@ describe 'Visitor visits links index' do
 
     click_on "Create User"
 
-    expect(page).to have_content("You must include an email in order to register")
+    expect(page).to have_content("You must include an email in order to register.")
   end
 
   scenario "password and password confirmation must match" do
@@ -86,7 +86,7 @@ describe 'Visitor visits links index' do
 
     click_on "Create User"
 
-    expect(page).to have_content("Password and pasword confirmation must match in order to register")
+    expect(page).to have_content("Password and confirmation must match in order to register.")
   end
 
 end

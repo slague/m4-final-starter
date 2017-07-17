@@ -7,12 +7,12 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      flash[:success] = "Logged in as #{@user.name}. Welcome!"
+      flash[:success] = "Signed with #{@user.email} account"
 
       redirect_to links_path
-    else
+    elsif @user.email == nil
       # FIX
-      flash[:danger] = "Invalid user/password combination."
+      flash[:danger] = "Invalid "
       render :new
     end
   end
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     flash[:success] = "You have logged out successfully."
-    redirect_to login_path
+    redirect_to '/home'
   end
-  
+
 end
