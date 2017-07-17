@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
 
     if @user.save
-      flash[:success] = "Welcome, #{@user.name}"
+      flash[:success] = "Successfully created accoutn with email, #{@user.email}"
       session[:user_id] = @user.id
 
       redirect_to links_path

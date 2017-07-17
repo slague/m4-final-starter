@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe 'Visitor visits links index' do
+  before do
+    @user = User.new(name: "Person", password: "123", email: "hello@gmail.com")
+    @user3 = User.create(name: "Dude", password: "987", email: "hi@gmail.com")
+    @user2 = User.new(name: "Another person", password: "321", email: "hi@gmail.com")
+    @user4 = User.new(name: "Hey!", password: '5678', email: "hey@gmail.com")
+  end
 
   scenario 'and is redirected to sign up' do
     visit root_path
@@ -21,21 +27,73 @@ describe 'Visitor visits links index' do
     expect(page).to have_content('Password confirmation')
   end
 
+
+  scenario "and fills in personal information" do
+    visit new_user_path
+
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: @user.password
+    fill_in "Password confirmation", with: @user.password
+    click_on "Create User"
+
+    expect(current_path).to eq(links_path)
+    expect(page).to have_content("Successfully created accoutn with email, #{@user.email}")
+  end
+
+  scenario "new user cannot register with already-used email address" do
+
+    visit new_user_path
+
+    fill_in "Email", with: @user2.email
+    fill_in "Password", with: @user2.password
+    fill_in "Password confirmation", with: @user2.password
+
+    click_on "Create User"
+
+    expect(page).to have_content("Sorry, but that email has already been taken.")
+  end
+
+  scenario "new user cannot register without a password" do
+
+    visit new_user_path
+
+    fill_in "Email", with: @user4.email
+
+    click_on "Create User"
+
+    expect(page).to have_content("You must include a password in order to register")
+  end
+
+  scenario "new user cannot register without an email" do
+
+    visit new_user_path
+
+    fill_in "Password", with: @user4.password
+    fill_in "Password confirmation", with: @user4.password
+
+    click_on "Create User"
+
+    expect(page).to have_content("You must include an email in order to register")
+  end
+
+  scenario "password and password confirmation must match" do
+
+    visit new_user_path
+
+    fill_in "Email", with: @user4.email
+    fill_in "Password", with: @user4.password
+    fill_in "Password confirmation", with: '6789'
+
+    click_on "Create User"
+
+    expect(page).to have_content("Password and pasword confirmation must match in order to register")
+  end
+
 end
 
 
-
-#
-# I cannot sign up with an email address that has already been used.
 # I cannot sign up without an email address and a password.
 # Password and confirmation must match.
-# If criteria is not met the user should be given a message to reflect the reason they could not sign up.
 # Upon submitting this information, I should be logged in and redirected to the "Links Index" page.
 #
-# Sign In
 #
-# As a registered user, when I attempt to sign in, I receive a flash message to reflect a successful or unsuccessful log in attempt.
-#
-# Sign Out
-#
-# As an authenticated user viewing the index page, I should see a link to "Sign Out" and not see a link to "Sign In". This "Sign Out" link should redirect me back to the page that prompts me to "Log In or Sign Up".
