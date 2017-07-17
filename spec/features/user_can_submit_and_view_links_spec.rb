@@ -1,5 +1,3 @@
-require('rail')
-
 require 'rails_helper'
 
 describe 'A logged in user can submit and view links' do
@@ -14,27 +12,49 @@ describe 'A logged in user can submit and view links' do
   end
 
   scenario "a logged in user sees a form to add a link on the links index page" do
-    # As an authenticated user viewing the main page (links#index), I should see a simple form to submit a link.
-    #
-    # A link includes:
-    #
-    # A valid URL for the link
-    # Hint: You can use Ruby's built in URI.parse method to determine if a link is a valid or not. This StackOverflow post has more information. Alternatively, you could use a gem like this one.
-    #
-    # A title for the link
-    #
-    # A read status that is either true or false.___ NOT PART OF FROM- DEFAULT TO FALSE
+
+    visit links_path
+
+    expect(page).to have_content("Add a new link to your list")
+    expect(page).to have_content("Title")
+    expect(page).to have_content("Url")
   end
 
   scenario "a link with a valid url and title can be added to a user's list of links" do
-    # create (fill out form and submit)
-    # Once a link has been submitted, loading the index page should display all of my links only.
-  end
-  scenario "a link's default read status is false" do
+    visit links_path
 
+    fill_in "Title", with: "Google"
+    fill_in "Url", with: "https://google.com"
+
+    click_on "Create Link"
+
+    expect(@user.links.length).to eq(1)
+    expect(@user.links.first.title).to eq("Google")
+    expect(@user.links.first.url).to eq("https://google.com")
+    expect(page).to have_content("Google")
+    expect(page).to have_content("https://google.com")
   end
+
+  scenario "a link's default read status is false" do
+    fill_in "Title", with: "Google"
+    fill_in "Url", with: "https://google.com"
+
+    click_on "Create Link"
+
+    expect(@user.links.first.read).to eq(false)
+    expect(page).to have_content("false")
+  end
+
   scenario "a link with an invalid url cannot be added to a user's list of links" do
-    # Submitting an invalid link should result in an error message being displayed that indicated why the user was not able to add the link.
+    visit links_path
+
+    fill_in "Title", with: "Google"
+    fill_in "Url", with: "google"
+
+    click_on "Create Link"
+
+# Bug! This is coming in as an alert via the ajax call... it is not createing, but error is an alert
+    expect(page).to have_content("Not a valid url.")
   end
 
 end

@@ -5,7 +5,30 @@ class LinksController < ApplicationController
       @links = current_user.links
     else
       redirect_to '/home'
-    end 
+    end
+    @link = Link.new
+  end
+
+  def new
+  end
+
+  def create
+    @user = current_user
+    @link = @user.links.create(link_params)
+
+    if @link.save
+      render partial: 'links/link', locals: {link: @link}, layout: false
+    else
+      render :new
+    end
+
+  end
+
+  private
+
+  def link_params
+    params.require(:link).permit(:title, :url, :read, :user_id)
+
   end
 
 end

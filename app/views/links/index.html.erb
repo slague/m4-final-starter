@@ -1,17 +1,26 @@
-<div class='fake nav' align='right'>
-  <% if current_user %>
-  <h3><%= "Signed with #{current_user.email}" %></h3>
-  <% end %>
-  <%= link_to 'Logout', logout_path, method: :delete %>
-</div>
-
-
-<h2>My Links Index</h2>
-
-<% @links.each do |link|  %>
-  <div class="links">
-    <h3>Title: <%= link.title %></h3>
-    <h4>URL: <%= link.url %></h4>
-    <h4>Read status: <%= link.read %></h4>
-  </div><br><br>
+<!-- <div class="flexcontainer"> -->
+  <div class='fake-nav' align='right'>
+    <% if current_user %>
+    <h3><%= "Signed with #{current_user.email}" %></h3>
     <% end %>
+    <%= link_to 'Logout', logout_path, method: :delete %>
+  </div>
+
+
+  <h2>My Links Index</h2>
+  <hr>
+    <div align="center" id="new-link">
+      <h3>Add a new link to your list</h3>
+      <%= render partial: 'form' %>
+    </div>
+  <hr>
+
+  <div id="links">
+    <% @links.each do |link|  %>
+      <div class="", id="link-<%=link.id%>">
+        <h3>Title: <%= link.title %></h3>
+        <h4>URL: <%= link.url %></h4>
+        <h4>Read status: <%= link.read %></h4>
+      </div>
+        <% end %>
+    </div>

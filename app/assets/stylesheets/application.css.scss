@@ -13,3 +13,21 @@
  *= require_tree .
  *= require_self
  */
+
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+ .flexcontainer {
+   display: -webkit-flex;
+   display: flex;
+   justify-content: center;
+}
+
+.flex-item{
+  padding: 40px;
+}
+
+body {
+
+  font-family: arial, sans-serif;
+}
