@@ -1,8 +1,9 @@
 $( document ).ready(function(){
-  $("body").on("click", ".mark-as-read", markAsRead)
+  $("body").on("click", ".mark-as-unread", markAsUnread)
+  // $(".mark-as-unread").on("click", markAsUnread)
 })
 
-function markAsRead(e) {
+function markAsUnread(e) {
   e.preventDefault();
   var $link = this.href
   var linkId = parseInt(this.parentElement.parentElement.parentElement.id.split('-')[1])
@@ -10,7 +11,7 @@ function markAsRead(e) {
   $.ajax({
     type: "PATCH",
     url: "/api/v1/links/" + linkId,
-    data: { read: true },
+    data: { read: false },
   }).then(updateLinkStatus)
     .fail(displayFailure);
 }
