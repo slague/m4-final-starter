@@ -29,15 +29,24 @@ class LinksController < ApplicationController
   end
 
   def update
-    @link = Link.find(params[:id])
-    @link.update(link_params)
+    if link_params.include?(:title || :url)
+      @link = Link.find(params[:id])
+      @link.update(link_params)
 
-    if @link.save
-      flash[:success] = "#{@link.title} has been updated."
-      redirect_to links_path
+      if @link.save
+        flash[:success] = "#{@link.title} has been updated."
+        redirect_to links_path
+      else
+        flash[:danger] = "Something went wrong. Try again."
+        render :edit
+      end
+
     else
-      flash[:danger] = "Something went wrong. Try again."
-      render :edit
+      if @link.save
+        render partial: 'links/link', locals: {link: @link}, layout: false
+      else
+        render :new
+      end
     end
   end
 

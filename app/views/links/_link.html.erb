@@ -1,9 +1,13 @@
 <div id="links">
   <div class="a-link", id="link-<%=link.id%>">
-    <div class= "read">
+    <div class= "<%=link.read %>">
       <h3>Title: <%= link.title %></h3>
-      <h4>URL: <%= link.url %></h4>
+      <h4>URL: <%= link_to "#{link.url}", link.url %></h4>
+      <% if link.read == false %>
       <h4><%= link_to 'Mark read', edit_link_path(link), class: "mark-as-read" %></h4><br><br>
+      <% else %>
+      <h4><%= link_to 'Mark unread', edit_link_path(link), class: "mark-as-unread" %></h4><br><br>
+      <% end  %>
     </div>
     <%= link_to "Edit link", edit_link_path(link), class: "btn btn-info" %>
   </div>
