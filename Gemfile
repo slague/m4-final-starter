@@ -17,6 +17,7 @@ gem 'sprockets-es6'
 gem 'bcrypt', '~> 3.1.7'
 gem "validate_url"
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'rack-cors', :require => 'rack/cors'
 
 # gem 'unicorn'
 

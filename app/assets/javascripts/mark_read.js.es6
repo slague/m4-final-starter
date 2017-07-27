@@ -1,5 +1,6 @@
 $( document ).ready(function(){
   $("body").on("click", ".mark-as-read", markAsRead)
+  // $("body").on("click", ".mark-as-read", addHotRead)
 })
 
 function markAsRead(e) {
@@ -22,8 +23,19 @@ function updateLinkStat(link) {
   var link = parent.children()[0].children[2].children[0]
   link.innerText = "Mark unread"
   $(link).addClass("mark-as-unread").removeClass("mark-as-read")
+  addHotRead(link)
 }
 
 function displayFailure(failureData){
   console.log("FAILED attempt to update Link: " + failureData.responseText);
+}
+
+
+function addHotRead(link){
+  $.ajax({
+    type: "POST",
+    url: "https://m4-hot-reads.herokuapp.com/links",
+    data: link,
+  }).then()
+    .fail(displayFailure)
 }
