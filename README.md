@@ -21,4 +21,11 @@ This app uses Rspec for testing. To run tests `rspec`
 
 ## API
 
+This app has one endpoint `POST '/api/v1/links` which can be used to update a 'link' record in the database.
+
 ## HotReads
+
+This app has a service called "Hot Reads". When a user clicks 'read' on a link, the information is sent and stored by the "Hot Reads" app. Visit the repo to learn more or the production link to see it in action. Note: all post requests are being made to the "Hot Reads" production site.
+
+[GitHub Repo](https://github.com/slague/hot_reads)
+[Production](https://m4-hot-reads.herokuapp.com/)
