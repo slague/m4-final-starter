@@ -12,21 +12,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
 
       redirect_to links_path
-
-    elsif User.exists?(email: @user.email)
-      flash[:danger] = "Sorry, but that email has already been taken."
-      render :new
-    elsif user_params[:email] == ""
-      flash[:danger] = "You must include an email in order to register."
-      render :new
-    elsif user_params[:password] == ""
-      flash[:danger] = "You must include a password in order to register."
-      render :new
-    elsif user_params[:password] != user_params[:password_confirmation]
-      flash[:danger] = "Password and confirmation must match in order to register."
-      render :new
     else
-      flash[:danger] = "There was an error. Please try again."
+      flash[:danger] = "#{@user.errors.messages}"
       render :new
     end
 
