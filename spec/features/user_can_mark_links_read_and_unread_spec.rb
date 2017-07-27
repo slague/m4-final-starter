@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'A logged in user can mark links as read or unread', js: true do
+describe 'A logged in user can mark links as read or unread' do
   before do
     @user = User.create(name: "Person", password: "123", email: "hi@gmail.com")
     @my_link = @user.links.create(title: "google", url: "https://google.com")
@@ -14,7 +14,7 @@ describe 'A logged in user can mark links as read or unread', js: true do
     click_on "Login"
   end
 
-    scenario "a can mark a link as read" do
+    scenario "links default to unread" do
 
       visit links_path
 
@@ -22,7 +22,7 @@ describe 'A logged in user can mark links as read or unread', js: true do
       expect(page).to_not have_link("Mark unread")
       end
 
-    scenario "a can mark a link as read" do
+    xscenario "a can mark a link as read" , js: true do
 
       visit links_path
 
