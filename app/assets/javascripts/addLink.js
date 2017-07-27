@@ -1,4 +1,3 @@
-
 function addLink() {
   var linkData = {
     link: {
