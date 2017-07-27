@@ -16,11 +16,12 @@ function addLink() {
     alert( "Not a valid url." )
   })
     .done(function(newLinkMarkup) {
-        // (newLinkMarkup).insertBefore( "#link-1" )
         $("#links").append(newLinkMarkup);
         $("#link_title").val("");
         $("#link_url").val("");
         $("#link_read").val("");
+        $("#new_link").remove()
+        $("#new-link").append(`<%= render partial: 'form' %>`)
     });
   }
 
