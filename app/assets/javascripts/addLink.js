@@ -19,8 +19,7 @@ function addLink() {
         $("#link_title").val("");
         $("#link_url").val("");
         $("#link_read").val("");
-        $("#new_link").remove()
-        $("#new-link").append(`<%= render partial: 'form' %>`)
+        $("#new_link").trigger("reset")
     });
   }
 
