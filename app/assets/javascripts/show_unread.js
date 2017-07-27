@@ -1,13 +1,9 @@
 $( document ).ready(function(){
-  $(".show-unread").on("click", showUnread)
+  $("#show-unread").on('click', showUnread)
+
+  function showUnread(){
+    var read = document.getElementsByClassName('true')
+    var unread = document.getElementsByClassName('false')
+    $(read).hide()
+  }
 })
-
-
-function showUnread() {
-debugger
-  var unread = document.getElementsByClassName('false')
-  var read = document.getElementsByClassName('true')
-  debugger
-  // $(unread).show()
-  $(read).hide()
-}

@@ -35,14 +35,14 @@ describe 'A logged in user can submit and view links' do
     expect(page).to have_content("https://google.com")
   end
 
-  scenario "a link's default read status is false" do
+  scenario "a new link's default read status is unread" do
     fill_in "Title", with: "Google"
     fill_in "Url", with: "https://google.com"
 
     click_on "Create Link"
 
     expect(@user.links.first.read).to eq(false)
-    expect(page).to have_content("false")
+    expect(page).to have_link("Mark read")
   end
 
   scenario "a link with an invalid url cannot be added to a user's list of links" do
@@ -53,8 +53,9 @@ describe 'A logged in user can submit and view links' do
 
     click_on "Create Link"
 
-# Bug! This is coming in as an alert via the ajax call... it is not createing, but error is an alert
-    expect(page).to have_content("Not a valid url.")
+    # text = page.driver.browser.switch_to.alert.text
+    # expect(text).to eq 'Not a valid url.'
+    expect(@user.links.count).to eq(0)
   end
 
 end

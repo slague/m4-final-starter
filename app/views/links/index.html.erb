@@ -18,8 +18,8 @@
   <div class="filter-container">
     <label for="filter-links">Filter Links</label>
     <input type="text" id="filter-links" placeholder="Filter Links" />&nbsp;
-    <%= link_to "Show Read", class: 'show-read' %>&nbsp;
-    <%= link_to "Show Unread", class: 'show-unread' %>
+    <%= link_to "Show Read", links_path, id: "show-read" %>&nbsp;
+    <%= link_to "Show Unread", links_path, id: "show-unread" %>
   </div><br>
 
   <div id="links">
