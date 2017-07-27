@@ -11,13 +11,17 @@ function markAsRead(e) {
     type: "PATCH",
     url: "/api/v1/links/" + linkId,
     data: { read: true },
-  }).then(updateLinkStatus)
+  }).then(updateLinkStat)
     .fail(displayFailure);
 }
 
-function updateLinkStatus(link) {
-
-  $(`.link[data-link-id=${link.id}]`).find(".read-status").text(link.read);
+function updateLinkStat(link) {
+  var parent = $(`#link-${link.id}`)
+  var div = parent.children()[0]
+  $(div).addClass('true').removeClass('false')
+  var link = parent.children()[0].children[2].children[0]
+  link.innerText = "Mark unread"
+  $(link).addClass("mark-as-unread").removeClass("mark-as-read")
 }
 
 function displayFailure(failureData){
