@@ -14,7 +14,7 @@ describe 'A logged in user can mark links as read or unread' do
     click_on "Login"
   end
 
-    scenario "a can mark a link as read" do
+    scenario "links default to unread" do
 
       visit links_path
 
@@ -22,7 +22,7 @@ describe 'A logged in user can mark links as read or unread' do
       expect(page).to_not have_link("Mark unread")
       end
 
-    xscenario "a can mark a link as read" do
+    xscenario "a can mark a link as read" , js: true do
 
       visit links_path
 

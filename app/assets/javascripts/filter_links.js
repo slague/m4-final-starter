@@ -1,6 +1,5 @@
 $( document ).ready(function(){
   $("#filter-links").on('keyup', filterLinks)
-  // $("#show-unread").on("click", showUnead)
 })
 
 function filterLinks(){
@@ -14,12 +13,3 @@ function filterLinks(){
     links[i].style.display = matched ? "" : "none"
   }
 }
-
-
-//
-// function showunRead(){
-//   debugger
-//   var unread = document.getElementsByClassName('false')
-//   var read = document.getElementsByClassName('true')
-//   $(read).hide()
-// }
