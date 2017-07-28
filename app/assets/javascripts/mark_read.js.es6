@@ -33,6 +33,29 @@ function displayFailure(failureData){
 function addHotRead(url){
   $.post("https://m4-hot-reads.herokuapp.com/api/v1/hot_reads",
     {url: url})
-    .then()
+    .then(getHotReads)
     .fail(displayFailure);
   }
+
+  function getHotReads(){
+    $.getJSON("https://m4-hot-reads.herokuapp.com/api/v1/hot_reads")
+    .then(function (data){
+      var hotReads = []
+
+      data.forEach(function(read) {
+        hotReads.push(read.url)
+      })
+      var appUrls = document.getElementsByClassName('url')
+      // debugger
+
+      for (var i =0; i<appUrls.length; i++){
+
+        if (appUrls[i].innerText == (hotReads[0])){
+          $(appUrls[i]).append("~~TOP LINK~~")
+        }
+        if (hotReads.includes(appUrls[i].innerText)){
+          $(appUrls[i]).append("**HOT READ**")
+        }
+      }
+    })
+   }

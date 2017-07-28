@@ -25,7 +25,7 @@ This app has one endpoint `POST '/api/v1/links` which can be used to update a 'l
 
 ## HotReads
 
-This app has a service called "Hot Reads". When a user clicks 'read' on a link, the information is sent and stored by the "Hot Reads" app. Visit the repo to learn more or the production link to see it in action. Note: all post requests are being made to the "Hot Reads" production site.
+This app has a service called "Hot Reads". When a user clicks 'read' on a link, the information is sent and stored by the "Hot Reads" app. You will see links marked as "hot reads" or as "top link" when you click 'mark as read', if the links are included in the hot reads list. Visit the repo to learn more or the production link to see it in action. Note: all post requests are being made to the "Hot Reads" production site.
 
 [GitHub Repo](https://github.com/slague/hot_reads)
 [Production](https://m4-hot-reads.herokuapp.com/)
